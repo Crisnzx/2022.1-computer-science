@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
-import sorting.simpleSorting.BubbleSort;
+import sorting.simpleSorting.SelectionSort;
 
 public class StudentSortingTest {
 
@@ -37,7 +37,7 @@ public class StudentSortingTest {
 	 * do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new BubbleSort<Integer>();
+		this.implementation = new SelectionSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
@@ -69,6 +69,8 @@ public class StudentSortingTest {
 		}
 		implementation.sort(array);
 		Arrays.sort(copy1);
+		System.out.println("Resultado obtido: " + Arrays.toString(array));
+		System.out.println("Resultado esperado: " + Arrays.toString(copy1));
 		Assert.assertArrayEquals(copy1, array);
 	}
 
