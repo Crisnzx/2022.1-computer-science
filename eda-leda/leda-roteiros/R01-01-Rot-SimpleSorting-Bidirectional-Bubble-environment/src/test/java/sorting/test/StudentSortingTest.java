@@ -69,8 +69,6 @@ public class StudentSortingTest {
 		}
 		implementation.sort(array);
 		Arrays.sort(copy1);
-		System.out.println("Resultado obtido: " + Arrays.toString(array));
-		System.out.println("Resultado esperado: " + Arrays.toString(copy1));
 		Assert.assertArrayEquals(copy1, array);
 	}
 
