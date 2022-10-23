@@ -18,13 +18,20 @@ public class BidirectionalBubbleSort<T extends Comparable<T>> extends
 		int countOrderedLeft = 0;
 		int countOrderedRight = 0;
 		for (int i = 0; i < rightIndex; i++) {
+			boolean rightSwapOccured = false;
+			boolean leftSwapOccured = false;
 			if (i % 2 == 0) {
-				this.moveToTheRight(array, leftIndex + countOrderedLeft, rightIndex - countOrderedRight);
+				rightSwapOccured = this.moveToTheRight(array, leftIndex + countOrderedLeft, rightIndex - countOrderedRight);
 				countOrderedRight++;
 			} else {
-				this.moveToTheLeft(array, leftIndex + countOrderedLeft, rightIndex - countOrderedRight);
+				leftSwapOccured = this.moveToTheLeft(array, leftIndex + countOrderedLeft, rightIndex - countOrderedRight);
 				countOrderedLeft++;
 			}
+
+			if (!rightSwapOccured && !leftSwapOccured) {
+				break;
+			}
+
 		}
 	}
 
