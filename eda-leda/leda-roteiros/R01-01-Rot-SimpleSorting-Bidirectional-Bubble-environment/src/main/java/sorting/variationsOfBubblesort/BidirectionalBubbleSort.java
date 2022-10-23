@@ -1,6 +1,7 @@
 package sorting.variationsOfBubblesort;
 
 import sorting.AbstractSorting;
+import util.Util;
 
 /**
  * This bubble sort variation has two internal iterations. In the first, it
@@ -14,7 +15,43 @@ public class BidirectionalBubbleSort<T extends Comparable<T>> extends
 
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		int countOrderedLeft = 0;
+		int countOrderedRight = 0;
+		for (int i = 0; i < rightIndex; i++) {
+			if (i % 2 == 0) {
+				this.moveToTheRight(array, leftIndex + countOrderedLeft, rightIndex - countOrderedRight);
+				countOrderedRight++;
+			} else {
+				this.moveToTheLeft(array, leftIndex + countOrderedLeft, rightIndex - countOrderedRight);
+				countOrderedLeft++;
+			}
+		}
 	}
+
+	private boolean moveToTheRight(T[] array, int leftIndex, int rightIndex) {
+		boolean atLeastOneSwapOccured = false;
+		for (int i = leftIndex; i < rightIndex; i++) {
+			boolean isCurrentGreaterThanNext = array[i].compareTo(array[i + 1]) > 0;
+			if (isCurrentGreaterThanNext) {
+				Util.swap(array, i, i + 1);
+				atLeastOneSwapOccured = true;
+			}
+		}
+
+		return atLeastOneSwapOccured;
+	}
+
+	private boolean moveToTheLeft(T[] array, int leftIndex, int rightIndex) {
+		boolean atLeastOneSwapOccured = false;
+		for (int i = rightIndex; i > leftIndex; i--) {
+			boolean isCurrentSmallerThanPrevious = array[i].compareTo(array[i - 1]) < 0;
+			if (isCurrentSmallerThanPrevious) {
+				Util.swap(array, i, i - 1);
+				atLeastOneSwapOccured = true;
+			}
+		}
+
+		return atLeastOneSwapOccured;
+	}
+
 }
