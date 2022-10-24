@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
-import sorting.divideAndConquer.quicksort3.QuickSortMedianOfThree;
+import sorting.divideAndConquer.hybridMergesort.HybridMergeSort;
 
 public class StudentSortingTest {
 
@@ -38,7 +38,7 @@ public class StudentSortingTest {
 	 */
 	private void getImplementation() {
 
-		this.implementation = new QuickSortMedianOfThree<Integer>();
+		this.implementation = new HybridMergeSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
@@ -70,9 +70,6 @@ public class StudentSortingTest {
 		}
 		implementation.sort(array);
 		Arrays.sort(copy1);
-
-		System.out.println("Resultado obtido: " + Arrays.toString(array));
-		System.out.println("Resultado esperado: " + Arrays.toString(copy1) + "\n");
 
 		Assert.assertArrayEquals(copy1, array);
 	}
