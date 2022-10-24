@@ -9,6 +9,7 @@ import org.junit.Test;
 import sorting.AbstractSorting;
 import sorting.divideAndConquer.MergeSort;
 import sorting.divideAndConquer.QuickSort;
+import sorting.divideAndConquer.quicksort3.QuickSortMedianOfThree;
 
 public class StudentSortingTest {
 
@@ -39,7 +40,7 @@ public class StudentSortingTest {
 	 */
 	private void getImplementation() {
 
-		this.implementation = new QuickSort<Integer>();
+		this.implementation = new QuickSortMedianOfThree<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
