@@ -22,17 +22,15 @@ public class CountingSort extends AbstractSorting<Integer> {
 		
 		Integer greatestElement = getGreatestElement(array);
 
-		Integer[] countArray = createArrayFilledWith(0, greatestElement + 1);
 		Integer[] sumArray = createArrayFilledWith(0, greatestElement + 1);
 		Integer[] orderedArray = createArrayFilledWith(0, array.length);
 
 		for (int i = 0; i < array.length; i++) {
-			countArray[array[i]] += 1;
+			sumArray[array[i]] += 1;
 		}
 
-		sumArray[0] = countArray[0];
 		for (int i = 1; i < sumArray.length; i++) {
-			sumArray[i] = sumArray[i-1] + countArray[i];
+			sumArray[i] = sumArray[i-1] + sumArray[i];
 		}
 
 		for (int i = array.length - 1; i >= 0; i--) {
