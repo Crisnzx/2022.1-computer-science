@@ -8,7 +8,7 @@ public class Main {
         Integer[] array = new Integer[100];
 
         for (int i = 0; i < array.length; i++) {
-            array[i] = new Random().nextInt(1000) + 5000000;
+            array[i] = new Random().nextInt(1000) - 500;
         }
         long timeBeforeSort = System.currentTimeMillis();
         countingSort.sort(array);
