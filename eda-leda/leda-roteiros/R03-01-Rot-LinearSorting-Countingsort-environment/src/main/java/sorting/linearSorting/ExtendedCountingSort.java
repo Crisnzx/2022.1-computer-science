@@ -14,28 +14,30 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		
+
+		if (array.length == 0) {
+			return;
+		}
+
 		Integer greatestElement = getGreatestElement(array);
 		Integer smallestElement = getSmallestElement(array);
 
+		Integer[] arrayCopy = Arrays.copyOf(array, array.length);
 		Integer[] sumArray = createArrayFilledWith(0, greatestElement + 1 - smallestElement);
-		Integer[] orderedArray = createArrayFilledWith(0, array.length);
 
-		for (int i = 0; i < array.length; i++) {
-			sumArray[array[i] - smallestElement] += 1;
+		for (int i = 0; i < arrayCopy.length; i++) {
+			sumArray[arrayCopy[i] - smallestElement] += 1;
 		}
 
 		for (int i = 1; i < sumArray.length; i++) {
-			sumArray[i] = sumArray[i-1] + sumArray[i];
+			sumArray[i] = sumArray[i - 1] + sumArray[i];
 		}
 
-		for (int i = array.length - 1; i >= 0; i--) {
-			Integer amountOfNumbersBefore = sumArray[array[i] - smallestElement];
-			orderedArray[amountOfNumbersBefore - 1] = array[i];
-			sumArray[array[i] - smallestElement] -= 1;
+		for (int i = arrayCopy.length - 1; i >= 0; i--) {
+			Integer amountOfNumbersBefore = sumArray[arrayCopy[i] - smallestElement];
+			array[amountOfNumbersBefore - 1] = arrayCopy[i];
+			sumArray[arrayCopy[i] - smallestElement] -= 1;
 		}
-
-		System.out.println(Arrays.toString(orderedArray));
 
 	}
 
@@ -67,7 +69,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 	private static Integer[] createArrayFilledWith(int numberToFill, int length) {
 		Integer[] array = new Integer[length];
 		for (int i = 0; i < array.length; i++) {
-			array[i] = numberToFill;	
+			array[i] = numberToFill;
 		}
 		return array;
 	}
