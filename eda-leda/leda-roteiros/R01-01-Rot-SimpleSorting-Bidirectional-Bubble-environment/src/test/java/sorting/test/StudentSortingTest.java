@@ -33,7 +33,7 @@ public class StudentSortingTest {
 				11, 18, 36 });
 		populaVetorRepetido(new Integer[] { 4, 9, 3, 4, 0, 5, 1, 4 });
 		populaVetorIgual(new Integer[] { 6, 6, 6, 6, 6, 6 });
-		populaVetorIndicesDefinidos(new Integer[] { 50, 42, 49, 12, 2, 5, 10, 98, 120 });
+		populaVetorIndicesDefinidos(new Integer[] { 50, 42, 40, 22, 19, 15, 8, 4, 2 });
 
 		getImplementation();
 	}

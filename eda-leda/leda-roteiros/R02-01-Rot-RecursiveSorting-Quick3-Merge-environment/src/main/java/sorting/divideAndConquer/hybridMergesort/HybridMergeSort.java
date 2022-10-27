@@ -36,17 +36,16 @@ public class HybridMergeSort<T extends Comparable<T>> extends
 
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 		boolean shouldUseInsertionSort = array.length <= HybridMergeSort.SIZE_LIMIT;
-
 		if (shouldUseInsertionSort) {
-			this.insertionSort(array, 0, array.length - 1);
+			this.insertionSort(array, leftIndex, rightIndex);
 		} else {
-			this.mergeSort(array, 0, array.length - 1);
+			this.mergeSort(array, leftIndex, rightIndex);
 		}
 
 	}
 
 	private void mergeSort(T[] array, int leftIndex, int rightIndex) {
-		if (leftIndex >= rightIndex) {
+		if (leftIndex >= rightIndex || array.length <= 1) {
 			return;
 		}
 
@@ -94,7 +93,7 @@ public class HybridMergeSort<T extends Comparable<T>> extends
 		for (int i = leftIndex + 1; i <= rightIndex; i++) {
 			HybridMergeSort.INSERTIONSORT_APPLICATIONS += 1;
 			int j = i;
-			while (j > 0) {
+			while (j > leftIndex) {
 				boolean isCurrentElementSmallerThanPreviousElement = array[j].compareTo(array[j - 1]) < 0;
 				if (!isCurrentElementSmallerThanPreviousElement) {
 					break;
