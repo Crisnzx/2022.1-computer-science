@@ -23,7 +23,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
-		if (array.length == 0) {
+		if (array.length <= 1) {
 			return;
 		}
 
@@ -31,7 +31,7 @@ public class CountingSort extends AbstractSorting<Integer> {
 		Integer[] arrayCopy = Arrays.copyOf(array, array.length);
 		Integer[] sumArray = createArrayFilledWith(0, greatestElement + 1);
 
-		for (int i = 0; i < arrayCopy.length; i++) {
+		for (int i = leftIndex; i <= rightIndex; i++) {
 			sumArray[arrayCopy[i]] += 1;
 		}
 
@@ -39,9 +39,9 @@ public class CountingSort extends AbstractSorting<Integer> {
 			sumArray[i] = sumArray[i - 1] + sumArray[i];
 		}
 
-		for (int i = arrayCopy.length - 1; i >= 0; i--) {
+		for (int i = rightIndex; i >= leftIndex; i--) {
 			Integer amountOfNumbersBefore = sumArray[arrayCopy[i]];
-			array[amountOfNumbersBefore - 1] = arrayCopy[i];
+			array[amountOfNumbersBefore + leftIndex - 1] = arrayCopy[i];
 			sumArray[arrayCopy[i]] -= 1;
 		}
 

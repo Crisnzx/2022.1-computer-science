@@ -17,6 +17,7 @@ public class StudentSortingTest {
 	private Integer[] vetorVazio = {};
 	private Integer[] vetorValoresRepetidos;
 	private Integer[] vetorValoresIguais;
+	private Integer[] vetorIndicesDefinidos;
 
 	public AbstractSorting<Integer> implementation;
 
@@ -28,6 +29,7 @@ public class StudentSortingTest {
 				11, 18, 36 });
 		populaVetorRepetido(new Integer[] { 4, 9, 3, 4, 0, 5, 1, 4 });
 		populaVetorIgual(new Integer[] { 6, 6, 6, 6, 6, 6 });
+		populaVetorIndicesDefinidos(new Integer[] { 50, 42, 40, 22, 19, 15, 8, 4, 2 });
 
 		getImplementation();
 	}
@@ -38,7 +40,7 @@ public class StudentSortingTest {
 	 * do aluno
 	 */
 	private void getImplementation() {
-		this.implementation = new ExtendedCountingSort();
+		this.implementation = new CountingSort();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
@@ -59,6 +61,10 @@ public class StudentSortingTest {
 				.copyOf(arrayPadrao, arrayPadrao.length);
 	}
 
+	public void populaVetorIndicesDefinidos(Integer[] arrayPadrao) {
+		this.vetorIndicesDefinidos = Arrays.copyOf(arrayPadrao, arrayPadrao.length);
+	}
+
 	// FIM DOS METODOS AUXILIARES DA INICIALIZAÇÃO
 
 	// MÉTODOS DE TESTE
@@ -72,6 +78,37 @@ public class StudentSortingTest {
 		Arrays.sort(copy1);
 
 		Assert.assertArrayEquals(copy1, array);
+	}
+
+	public void genericDefinedIndexesTest(Integer[] array, int leftIndex, int rightIndex) {
+		Integer[] copy1 = {};
+		Integer[] copy2 = {};
+		Integer[] copy3 = {};
+		if (array.length > 0) {
+			copy1 = Arrays.copyOf(array, leftIndex);
+			copy2 = Arrays.copyOfRange(array, leftIndex, rightIndex + 1);
+			copy3 = Arrays.copyOfRange(array, rightIndex + 1, array.length);
+		}
+		Arrays.sort(copy2);
+		Integer[] copy = new Integer[copy1.length + copy2.length + copy3.length];
+		int k = 0;
+		for (int i = 0; i < copy1.length; i++) {
+			copy[k] = copy1[i];
+			k++;
+		}
+		for (int i = 0; i < copy2.length; i++) {
+			copy[k] = copy2[i];
+			k++;
+		}
+		for (int i = 0; i < copy3.length; i++) {
+			copy[k] = copy3[i];
+			k++;
+		}
+		implementation.sort(array, leftIndex, rightIndex);
+		System.out.println(Arrays.toString(array));
+		System.out.println(Arrays.toString(copy));
+		Assert.assertArrayEquals(copy, array);
+
 	}
 
 	@Test
@@ -97,6 +134,11 @@ public class StudentSortingTest {
 	@Test
 	public void testSort05() {
 		genericTest(vetorValoresRepetidos);
+	}
+
+	@Test
+	public void testSort06() {
+		genericDefinedIndexesTest(vetorIndicesDefinidos, 2, 4);
 	}
 
 	// MÉTODOS QUE OS ALUNOS PODEM CRIAR
