@@ -8,10 +8,9 @@ public class FloorBinarySearchImpl implements Floor {
 
 	@Override
 	public Integer floor(Integer[] array, Integer x) {
-
 		this.sort(array, 0, array.length - 1);
+		return this.getFloor(array, x);
 
-		return 0;
 	}
 
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
@@ -63,24 +62,56 @@ public class FloorBinarySearchImpl implements Floor {
 
 	}
 
-	public int binarySearch(Integer[] array, int leftIndex, int rightIndex, Integer searchedNumber) {
+	public Integer getFloor(Integer[] array, Integer number) {
+		return this.getFloor(array, 0, array.length - 1, number, null);
+	}
 
+	private Integer getFloor(Integer[] array, int leftIndex, int rightIndex, Integer number, Integer floor) {
 		if (leftIndex > rightIndex) {
-			return -1;
+			return floor;
 		}
 
 		int middle = (leftIndex + rightIndex) / 2;
 
-		if (array[middle].compareTo(searchedNumber) == 0) {
-			return middle;
+		if (number.compareTo(array[middle]) == 0) {
+			return number;
 		}
 
-		if (array[middle].compareTo(searchedNumber) < 0) {
-			this.binarySearch(array, leftIndex, middle - 1, searchedNumber);
+		if (number.compareTo(array[middle]) < 0) {
+			return this.getFloor(array, leftIndex, middle - 1, number, floor);
 		} else {
-			this.binarySearch(array, middle + 1, rightIndex, searchedNumber);
+			return this.getFloor(array, middle + 1, rightIndex, number, array[middle]);
 		}
-		return -1;
+
 	}
+
+	/*
+	 * Binary search algorythm documented here to be registered for the future.
+	 * Code commented to avoid compilation errors in the server.
+	 * 
+	 * public int binarySearch(Integer[] array, Integer searchedNumber) {
+	 * return this.binarySearch(array, 0, array.length - 1, searchedNumber);
+	 * }
+	 * 
+	 * private int binarySearch(Integer[] array, int leftIndex, int rightIndex,
+	 * Integer searchedNumber) {
+	 * 
+	 * if (leftIndex > rightIndex) {
+	 * return -1;
+	 * }
+	 * 
+	 * int middle = (leftIndex + rightIndex) / 2;
+	 * 
+	 * if (searchedNumber.compareTo(array[middle]) == 0) {
+	 * return middle;
+	 * }
+	 * 
+	 * if (searchedNumber.compareTo(array[middle]) < 0) {
+	 * return this.binarySearch(array, leftIndex, middle - 1, searchedNumber);
+	 * } else {
+	 * return this.binarySearch(array, middle + 1, rightIndex, searchedNumber);
+	 * }
+	 * }
+	 */
 
 }
