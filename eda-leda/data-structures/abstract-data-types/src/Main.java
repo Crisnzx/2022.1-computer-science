@@ -1,18 +1,31 @@
 package src;
 
-import src.linkedList.LinkedList;
+import src.stack.ArrayStack;
+import src.stack.Stack;
 
 public class Main {
   public static void main(String[] args) {
-    LinkedList<Integer> linkedList = new LinkedList<Integer>();
-    linkedList.add(1);
-    linkedList.add(2);
-    linkedList.add(3);
-    linkedList.add(4);
-    linkedList.remove(0);
+    Stack<Integer> stack = new ArrayStack<Integer>(5);
 
-    System.out.println(linkedList.toString());
-    System.out.println(linkedList.isEmpty());
+    System.out.println(stack.isEmpty());
+    System.out.println(stack.isFull());
+
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.push(4);
+    stack.push(1);
+    stack.push(2);
+    stack.push(3);
+    stack.push(4);
+
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    stack.push(5);
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
+    System.out.println(stack.pop());
 
   }
 }
