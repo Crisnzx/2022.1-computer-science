@@ -10,30 +10,44 @@ public class KLargestOrderStatisticsImplTest {
   private KLargestOrderStatisticsImpl<Integer> kLargestOrderStatistics = new KLargestOrderStatisticsImpl<Integer>();
 
   @Test
-  public void testShouldReturnOneElementArray() {
+  public void testShouldReturnKLargestElementsOfArray01() {
     Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 4);
-    Integer[] expectedResult = new Integer[] { 8 };
-    assertArrayEquals(expectedResult, kLargest);
-  }
-
-  @Test
-  public void testShouldReturnEmptyArray() {
-    Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 5);
-    Integer[] expectedResult = new Integer[] {};
-    assertArrayEquals(expectedResult, kLargest);
-  }
-
-  @Test
-  public void testShouldReturnArrayWithoutSmallestElement() {
-    Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 1);
     Integer[] expectedResult = new Integer[] { 3, 5, 6, 8 };
     assertArrayEquals(expectedResult, kLargest);
   }
 
   @Test
-  public void testShouldReturnArrayWithoutTwoSmallestElements() {
+  public void testShouldReturnKLargestElementsOfArray02() {
+    Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 5);
+    Integer[] expectedResult = new Integer[] { 2, 3, 5, 6, 8 };
+    assertArrayEquals(expectedResult, kLargest);
+  }
+
+  @Test
+  public void testShouldReturnKLargestElementsOfArray03() {
+    Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 1);
+    Integer[] expectedResult = new Integer[] { 8 };
+    assertArrayEquals(expectedResult, kLargest);
+  }
+
+  @Test
+  public void testShouldReturnKLargestElementsOfArray04() {
     Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 2);
-    Integer[] expectedResult = new Integer[] { 5, 6, 8 };
+    Integer[] expectedResult = new Integer[] { 6, 8 };
+    assertArrayEquals(expectedResult, kLargest);
+  }
+
+  @Test
+  public void testShouldReturnEmptyArray01() {
+    Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 0);
+    Integer[] expectedResult = new Integer[] {};
+    assertArrayEquals(expectedResult, kLargest);
+  }
+
+  @Test
+  public void testShouldReturnEmptyArray02() {
+    Integer[] kLargest = kLargestOrderStatistics.getKLargest(this.testArray, 6);
+    Integer[] expectedResult = new Integer[] {};
     assertArrayEquals(expectedResult, kLargest);
   }
 }
