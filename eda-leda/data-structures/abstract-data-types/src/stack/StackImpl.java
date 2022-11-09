@@ -3,12 +3,12 @@ package src.stack;
 import src.stack.exceptions.StackOverflowException;
 import src.stack.exceptions.StackUnderflowException;
 
-public class ArrayStack<T> implements Stack<T> {
+public class StackImpl<T> implements Stack<T> {
 
   private T[] stack;
   private int peek = -1;
 
-  public ArrayStack(int size) {
+  public StackImpl(int size) {
     this.stack = (T[]) new Object[size];
   }
 
