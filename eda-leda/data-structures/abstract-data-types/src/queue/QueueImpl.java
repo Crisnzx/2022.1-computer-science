@@ -5,10 +5,21 @@ import src.queue.exceptions.QueueUnderflowException;
 
 public class QueueImpl<T> implements Queue<T> {
 
+    private T[] queue;
+    private int head;
+    private int tail;
+
+    public QueueImpl(int size) {
+        this.queue = (T[]) new Object[size];
+        this.head = -1;
+        this.tail = -1;
+    }
+
     @Override
     public void enqueue(T element) throws QueueOverflowException {
         // TODO Auto-generated method stub
-        
+        // Se o tail estiver atras do head, a fila tá cheia (tail = head - 1)
+
     }
 
     @Override
@@ -34,5 +45,5 @@ public class QueueImpl<T> implements Queue<T> {
         // TODO Auto-generated method stub
         return false;
     }
-    
+
 }
