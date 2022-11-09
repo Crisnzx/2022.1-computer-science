@@ -18,73 +18,73 @@ public class LinkedListTest {
   private static final int NEGATIVE_INDEX = -1;
 
   @Test
-  public void testShouldAddValueInEmptyList() {
+  public void testAddEmptyList() {
     this.emptyList.add(VALUE);
     assertTrue(this.emptyList.contains(VALUE));
   }
 
   @Test
-  public void testShouldAddValueInTheCorrectIndex() {
+  public void testAddAtIndex() {
     final int INDEX = 6;
     this.list.add(VALUE, INDEX);
     assertEquals(VALUE, this.list.get(INDEX));
   }
 
   @Test
-  public void testAddShouldThrowExceptionIfIndexIsOutOfLength() {
+  public void testAddInvalidIndex() {
     assertThrows(IndexOutOfBoundsException.class, () -> {
       this.list.add(1, INDEX_OUT_LENGTH);
     });
   }
 
   @Test
-  public void testAddShouldThrowExceptionIfIndexIsNegative() {
+  public void testAddAtNegativeIndex() {
     assertThrows(IndexOutOfBoundsException.class, () -> {
       this.list.add(1, NEGATIVE_INDEX);
     });
   }
 
   @Test
-  public void testShouldGetCorrectValue() {
+  public void testGet() {
     assertEquals(6, this.list.get(5));
   }
 
   @Test
-  public void testGetShouldThrowExceptionIfIndexIsOutOfLength() {
+  public void testGetInvalidIndex() {
     assertThrows(IndexOutOfBoundsException.class, () -> {
       this.list.get(INDEX_OUT_LENGTH);
     });
   }
 
   @Test
-  public void testGetShouldThrowExceptionIfIndexIsNegative() {
+  public void testGetNegativeIndex() {
     assertThrows(IndexOutOfBoundsException.class, () -> {
       this.list.get(NEGATIVE_INDEX);
     });
   }
 
   @Test
-  public void testShouldRemoveNonLastValue() {
+  public void testRemoveAtIndex() {
     this.list.remove(3);
     assertFalse(this.list.contains(4));
 
   }
 
   @Test
-  public void testShouldRemoveLastValue() {
+  public void testRemoveAtLastIndex() {
     this.list.remove(6);
     assertFalse(this.list.contains(7));
   }
 
   @Test
-  public void testRemoveShouldThrowExceptionIfIndexIsOutOfLength() {
+  public void testRemoveInvalidIndex() {
     assertThrows(IndexOutOfBoundsException.class, () -> {
       this.list.remove(INDEX_OUT_LENGTH);
     });
   }
 
   @Test
-  public void testRemoveShouldThrowExceptionIfIndexIsNegative() {
+  public void testRemoveNegativeIndex() {
 
     assertThrows(IndexOutOfBoundsException.class, () -> {
       this.list.remove(NEGATIVE_INDEX);
@@ -92,23 +92,30 @@ public class LinkedListTest {
   }
 
   @Test
-  public void testShouldNotContainK() {
+  public void testContains() {
     int k = 10;
     assertFalse(this.list.contains(k));
   }
 
   @Test
-  public void testShouldReturnCorrectLength() {
+  public void testDoesNotContain() {
+    int k = 10;
+    this.list.add(Integer.valueOf(k));
+    assertTrue(this.list.contains(k));
+  }
+
+  @Test
+  public void testLength() {
     assertEquals(7, this.list.length());
   }
 
   @Test
-  public void testListShouldBeEmpty() {
+  public void testEmpty() {
     assertTrue(this.emptyList.isEmpty());
   }
 
   @Test
-  public void testListShouldNotBeEmpty() {
+  public void testNonEmpty() {
     assertFalse(this.list.isEmpty());
   }
 
