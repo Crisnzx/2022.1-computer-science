@@ -16,12 +16,12 @@ public class RecursiveSelectionSort<T extends Comparable<T>> extends
 	 */
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		if (leftIndex >= rightIndex) {
+		if (leftIndex >= rightIndex || array.length <= 1) {
 			return;
 		}
 
-		for (int i = leftIndex; i < rightIndex; i++) {
-			int smallestIndex = this.getSmallestElementIndex(i, array);
+		for (int i = leftIndex; i <= rightIndex; i++) {
+			int smallestIndex = this.getSmallestElementIndex(array, i, rightIndex);
 			Util.swap(array, smallestIndex, i);
 		}
 
@@ -29,9 +29,9 @@ public class RecursiveSelectionSort<T extends Comparable<T>> extends
 
 	}
 
-	private int getSmallestElementIndex(int start, T[] array) {
-		int smallestIndex = start;
-		for (int i = start + 1; i < array.length; i++) {
+	private int getSmallestElementIndex(T[] array, int leftIndex, int rightIndex) {
+		int smallestIndex = leftIndex;
+		for (int i = leftIndex + 1; i <= rightIndex; i++) {
 			if (array[i].compareTo(array[smallestIndex]) < 0) {
 				smallestIndex = i;
 			}

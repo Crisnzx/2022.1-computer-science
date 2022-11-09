@@ -13,12 +13,12 @@ public class BubbleSort<T extends Comparable<T>> extends AbstractSorting<T> {
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
 		
-		while (true) {
+		for (int i = leftIndex; i <= rightIndex; i++) {
 			boolean atLeastOneSwapOccured = false;
-			for (int i = leftIndex; i < rightIndex - i; i++) {
-				boolean isCurrentElementGreaterThanNextElement = array[i].compareTo(array[i+1]) > 0;
+			for (int j = leftIndex; j < leftIndex + rightIndex - i; j++) {
+				boolean isCurrentElementGreaterThanNextElement = array[j].compareTo(array[j+1]) > 0;
 				if (isCurrentElementGreaterThanNextElement) {
-					Util.swap(array, i, i+1);
+					Util.swap(array, j, j+1);
 					atLeastOneSwapOccured = true;
 				}
 			}
