@@ -1,11 +1,11 @@
 package src;
 
-import src.stack.ArrayStack;
+import src.stack.StackImpl;
 import src.stack.Stack;
 
 public class Main {
   public static void main(String[] args) {
-    Stack<Integer> stack = new ArrayStack<Integer>(5);
+    Stack<Integer> stack = new StackImpl<Integer>(5);
 
     System.out.println(stack.isEmpty());
     System.out.println(stack.isFull());
