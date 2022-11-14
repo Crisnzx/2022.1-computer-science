@@ -16,32 +16,60 @@ public class CircularQueue<T> implements Queue<T> {
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (this.array.length == 0 || this.isFull()) {
+			throw new QueueOverflowException();
+		}
+
+		if (this.isEmpty()) {
+			this.head = 0;
+			this.tail = 0;
+			this.array[tail] = element;
+		} else {
+			this.tail += 1;
+			this.array[this.getMod(tail)] = element;
+		}
+		this.elements += 1;
+
 	}
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (this.isEmpty()) {
+			throw new QueueUnderflowException();
+		}
+		T removedElement = this.array[this.head];
+		this.elements -= 1;
+		if (this.head == this.tail) {
+			this.head = -1;
+			this.tail = -1;
+		} else {
+			this.head += 1;
+		}
+
+		return removedElement;
+
 	}
 
 	@Override
 	public T head() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (this.isEmpty()) {
+			return null;
+		}
+		return this.array[this.getMod(this.head)];
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.elements == 0;
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.elements == this.array.length;
+	}
+
+	private int getMod(int number) {
+		return number % this.array.length;
 	}
 
 }
