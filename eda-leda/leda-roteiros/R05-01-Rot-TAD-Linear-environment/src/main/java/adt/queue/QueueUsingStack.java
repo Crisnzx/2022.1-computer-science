@@ -2,6 +2,8 @@ package adt.queue;
 
 import adt.stack.Stack;
 import adt.stack.StackImpl;
+import adt.stack.StackOverflowException;
+import adt.stack.StackUnderflowException;
 
 public class QueueUsingStack<T> implements Queue<T> {
 
@@ -15,32 +17,71 @@ public class QueueUsingStack<T> implements Queue<T> {
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+
+		try {
+			this.stack1.push(element);
+		} catch (StackOverflowException exception) {
+			throw new QueueOverflowException();
+		}
+
 	}
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+
+		if (this.isEmpty()) {
+			throw new QueueUnderflowException();
+		}
+
+		try {
+
+			this.transferToStack2();
+			T removedElement = this.stack2.pop();
+			this.transferToStack1();
+			return removedElement;
+
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
 
 	@Override
 	public T head() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		this.transferToStack2();
+		T headElement = this.stack2.top();
+		this.transferToStack1();
+		return headElement;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.stack1.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.stack1.isFull();
+	}
+
+	private void transferToStack2() {
+		try {
+			while (!this.stack1.isEmpty()) {
+				T element = this.stack1.pop();
+				this.stack2.push(element);
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	private void transferToStack1() {
+		try {
+			while (!this.stack2.isEmpty()) {
+				T element = this.stack2.pop();
+				this.stack1.push(element);
+			}
+		} catch (Exception e) {
+		}
 	}
 
 }
