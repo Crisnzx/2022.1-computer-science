@@ -32,9 +32,9 @@ public class StudentQueueTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		queue1 = null;
-		queue2 = null;
-		queue3 = null;
+		queue1 = new QueueDoubleLinkedListImpl<Integer>(5);
+		queue2 = new QueueDoubleLinkedListImpl<Integer>(2);
+		queue3 = new QueueDoubleLinkedListImpl<Integer>(1);
 	}
 
 	// MÉTODOS DE TESTE
@@ -66,8 +66,8 @@ public class StudentQueueTest {
 
 	@Test(expected = QueueOverflowException.class)
 	public void testEnqueueComErro() throws QueueOverflowException {
-		queue1.enqueue(new Integer(5)); // vai depender do tamanho que a fila
-										// foi iniciada!!!
+		queue2.enqueue(new Integer(5)); // vai depender do tamanho que a fila
+		// foi iniciada!!!
 	}
 
 	@Test
@@ -82,8 +82,8 @@ public class StudentQueueTest {
 
 	@Test(expected = QueueUnderflowException.class)
 	public void testDequeueComErro() throws QueueUnderflowException {
-		assertEquals(new Integer(1), queue1.dequeue()); // vai depender do
-														// tamanho que a fial
-														// foi iniciada!!!
+		assertEquals(new Integer(1), queue3.dequeue()); // vai depender do
+		// tamanho que a fial
+		// foi iniciada!!!
 	}
 }
