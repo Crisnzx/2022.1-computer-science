@@ -8,6 +8,13 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public BSTImpl() {
 		root = new BSTNode<T>();
+		BSTNode<T> leftNil = new BSTNode<T>();
+		leftNil.setParent(root);
+		root.setLeft(leftNil);
+
+		BSTNode<T> rightNil = new BSTNode<T>();
+		rightNil.setParent(root);
+		root.setRight(rightNil);
 	}
 
 	public BSTNode<T> getRoot() {
@@ -21,15 +28,11 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public int height() {
-		if (this.isEmpty()) {
-			return -1;
-		}
-
 		return this.height(this.root);
 	}
 
 	private int height(BSTNode<T> current) {
-		if (current == null) {
+		if (current.isEmpty()) {
 			return -1;
 		}
 		int leftHeight = this.height((BSTNode<T>) current.getLeft());
@@ -40,19 +43,13 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> search(T element) {
-		if (this.isEmpty()) {
-			return root;
-		}
-
 		return this.search(this.root, element);
 
 	}
 
 	private BSTNode<T> search(BSTNode<T> currentNode, T element) {
-
-		if (currentNode == null) {
-			BSTNode<T> nil = new BSTNode<T>();
-			return nil;
+		if (currentNode.isEmpty()) {
+			return new BSTNode<T>();
 		}
 
 		if (currentNode.getData().equals(element)) {
@@ -73,9 +70,18 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	@Override
 	public void insert(T element) {
 		if (this.isEmpty()) {
-			BSTNode<T> node = new BSTNode<T>();
-			node.setData(element);
-			this.root = node;
+			BSTNode<T> newNode = new BSTNode<T>();
+			newNode.setData(element);
+
+			BSTNode<T> leftNil = new BSTNode<T>();
+			leftNil.setParent(newNode);
+			newNode.setLeft(leftNil);
+
+			BSTNode<T> rightNil = new BSTNode<T>();
+			rightNil.setParent(newNode);
+			newNode.setRight(rightNil);
+
+			this.root = newNode;
 			return;
 		}
 		this.insert(this.root, element);
@@ -84,12 +90,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	private void insert(BSTNode<T> currentNode, T element) {
 		boolean isElementSmallerThanCurrentNode = element.compareTo(currentNode.getData()) < 0;
-		if (isElementSmallerThanCurrentNode && currentNode.getLeft() != null) {
+		if (isElementSmallerThanCurrentNode && !currentNode.getLeft().isEmpty()) {
 			this.insert((BSTNode<T>) currentNode.getLeft(), element);
 			return;
 		}
 
-		if (!isElementSmallerThanCurrentNode && currentNode.getRight() != null) {
+		if (!isElementSmallerThanCurrentNode && !currentNode.getRight().isEmpty()) {
 			this.insert((BSTNode<T>) currentNode.getRight(), element);
 			return;
 		}
@@ -97,6 +103,14 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		BSTNode<T> newNode = new BSTNode<T>();
 		newNode.setParent(currentNode);
 		newNode.setData(element);
+
+		BSTNode<T> leftNil = new BSTNode<T>();
+		leftNil.setParent(newNode);
+		newNode.setLeft(leftNil);
+
+		BSTNode<T> rightNil = new BSTNode<T>();
+		rightNil.setParent(newNode);
+		newNode.setRight(rightNil);
 
 		if (isElementSmallerThanCurrentNode) {
 			currentNode.setLeft(newNode);
@@ -116,7 +130,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private BSTNode<T> maximum(BSTNode<T> current) {
-		if (current.getRight() == null) {
+		if (current.getRight().isEmpty()) {
 			return current;
 		}
 
@@ -134,7 +148,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private BSTNode<T> minimum(BSTNode<T> current) {
-		if (current.getLeft() == null) {
+		if (current.getLeft().isEmpty()) {
 			return current;
 		}
 
@@ -173,7 +187,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private void preOrder(ArrayList<T> array, BSTNode<T> current) {
-		if (current == null) {
+		if (current.isEmpty()) {
 			return;
 		}
 
@@ -196,7 +210,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private void order(ArrayList<T> array, BSTNode<T> current) {
-		if (current == null) {
+		if (current.isEmpty()) {
 			return;
 		}
 
@@ -219,7 +233,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private void postOrder(ArrayList<T> array, BSTNode<T> current) {
-		if (current == null) {
+		if (current.isEmpty()) {
 			return;
 		}
 
