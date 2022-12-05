@@ -8,13 +8,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	public BSTImpl() {
 		root = new BSTNode<T>();
-		BSTNode<T> leftNil = new BSTNode<T>();
-		leftNil.setParent(root);
-		root.setLeft(leftNil);
 
-		BSTNode<T> rightNil = new BSTNode<T>();
-		rightNil.setParent(root);
-		root.setRight(rightNil);
 	}
 
 	public BSTNode<T> getRoot() {
@@ -80,6 +74,9 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			BSTNode<T> rightNil = new BSTNode<T>();
 			rightNil.setParent(newNode);
 			newNode.setRight(rightNil);
+
+			BSTNode<T> parentNil = new BSTNode<T>();
+			newNode.setParent(parentNil);
 
 			this.root = newNode;
 			return;
@@ -158,20 +155,59 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> sucessor(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		BSTNode<T> node = this.search(element);
+		if (node.isEmpty()) {
+			return null;
+		}
+
+		boolean hasRightTree = !node.getRight().isEmpty();
+		if (hasRightTree) {
+			return this.minimum((BSTNode<T>) node.getRight());
+		} else {
+			return this.getParentGreaterThanNode((BSTNode<T>) node.getParent(), node);
+		}
+	}
+
+	private BSTNode<T> getParentGreaterThanNode(BSTNode<T> current, BSTNode<T> node) {
+		if (current.isEmpty()) {
+			return null;
+		}
+		boolean parentIsSucessor = current.getData().compareTo(node.getData()) > 0;
+		if (parentIsSucessor) {
+			return current;
+		}
+		return this.getParentGreaterThanNode((BSTNode<T>) current.getParent(), node);
 	}
 
 	@Override
 	public BSTNode<T> predecessor(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		BSTNode<T> node = this.search(element);
+		if (node.isEmpty()) {
+			return null;
+		}
+
+		boolean hasLeftTree = !node.getLeft().isEmpty();
+		if (hasLeftTree) {
+			return this.maximum((BSTNode<T>) node.getLeft());
+		} else {
+			return this.getParentSmallerThanNode((BSTNode<T>) node.getParent(), node);
+		}
+	}
+
+	private BSTNode<T> getParentSmallerThanNode(BSTNode<T> current, BSTNode<T> node) {
+		if (current.isEmpty()) {
+			return null;
+		}
+		boolean parentIsPredecessor = current.getData().compareTo(node.getData()) < 0;
+		if (parentIsPredecessor) {
+			return current;
+		}
+		return this.getParentSmallerThanNode((BSTNode<T>) current.getParent(), node);
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+
 	}
 
 	@Override
