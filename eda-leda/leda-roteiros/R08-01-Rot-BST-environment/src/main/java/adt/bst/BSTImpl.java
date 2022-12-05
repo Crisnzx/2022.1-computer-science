@@ -87,12 +87,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	private void insert(BSTNode<T> currentNode, T element) {
 		boolean isElementSmallerThanCurrentNode = element.compareTo(currentNode.getData()) < 0;
-		if (isElementSmallerThanCurrentNode && !currentNode.getLeft().isEmpty()) {
+		if (isElementSmallerThanCurrentNode && this.hasLeftChild(currentNode)) {
 			this.insert((BSTNode<T>) currentNode.getLeft(), element);
 			return;
 		}
 
-		if (!isElementSmallerThanCurrentNode && !currentNode.getRight().isEmpty()) {
+		if (!isElementSmallerThanCurrentNode && this.hasRightChild(currentNode)) {
 			this.insert((BSTNode<T>) currentNode.getRight(), element);
 			return;
 		}
@@ -127,7 +127,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private BSTNode<T> maximum(BSTNode<T> current) {
-		if (current.getRight().isEmpty()) {
+		if (!this.hasRightChild(current)) {
 			return current;
 		}
 
@@ -145,7 +145,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 	}
 
 	private BSTNode<T> minimum(BSTNode<T> current) {
-		if (current.getLeft().isEmpty()) {
+		if (!this.hasLeftChild(current)) {
 			return current;
 		}
 
@@ -160,8 +160,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			return null;
 		}
 
-		boolean hasRightTree = !node.getRight().isEmpty();
-		if (hasRightTree) {
+		if (this.hasRightChild(node)) {
 			return this.minimum((BSTNode<T>) node.getRight());
 		} else {
 			return this.getParentGreaterThanNode((BSTNode<T>) node.getParent(), node);
@@ -186,8 +185,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 			return null;
 		}
 
-		boolean hasLeftTree = !node.getLeft().isEmpty();
-		if (hasLeftTree) {
+		if (this.hasLeftChild(node)) {
 			return this.maximum((BSTNode<T>) node.getLeft());
 		} else {
 			return this.getParentSmallerThanNode((BSTNode<T>) node.getParent(), node);
@@ -207,7 +205,92 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public void remove(T element) {
+		BSTNode<T> node = this.search(element);
+		if (node.isEmpty()) {
+			return;
+		}
+		this.remove(node);
 
+	}
+
+	private void remove(BSTNode<T> node) {
+
+		if (node.isLeaf()) {
+			this.removeIsLeaf(node);
+		} else if (this.hasOnlyOneChild(node)) {
+			this.removeHasOnlyOneChild(node);
+		} else {
+			this.removeHasTwoChildren(node);
+		}
+
+	}
+
+	private void removeIsLeaf(BSTNode<T> node) {
+		BSTNode<T> parent = (BSTNode<T>) node.getParent();
+		boolean isRoot = parent.isEmpty();
+
+		if (isRoot) {
+			this.root = new BSTNode<T>();
+			return;
+		}
+
+		boolean isLeftChild = node.getData().compareTo(parent.getData()) < 0;
+		if (isLeftChild) {
+			parent.setLeft(new BSTNode<T>());
+		} else {
+			parent.setRight(new BSTNode<T>());
+		}
+	}
+
+	private void removeHasOnlyOneChild(BSTNode<T> node) {
+		BSTNode<T> parent = (BSTNode<T>) node.getParent();
+		boolean isRoot = parent.isEmpty();
+		if (isRoot) {
+			if (this.hasLeftChild(node)) {
+				this.root = (BSTNode<T>) node.getLeft();
+			} else {
+				this.root = (BSTNode<T>) node.getRight();
+			}
+			this.root.setParent(new BSTNode<T>());
+			return;
+		}
+
+		boolean isLeftChild = node.getData().compareTo(parent.getData()) < 0;
+		if (isLeftChild) {
+			if (this.hasLeftChild(node)) {
+				node.getLeft().setParent(parent);
+				parent.setLeft(node.getLeft());
+			} else {
+				node.getRight().setParent(parent);
+				parent.setLeft(node.getRight());
+			}
+		} else {
+			if (this.hasLeftChild(node)) {
+				node.getLeft().setParent(parent);
+				parent.setRight(node.getLeft());
+			} else {
+				node.getRight().setParent(parent);
+				parent.setRight(node.getRight());
+			}
+		}
+	}
+
+	private void removeHasTwoChildren(BSTNode<T> node) {
+		BSTNode<T> sucessor = this.sucessor(node.getData());
+		node.setData(sucessor.getData());
+		this.remove(sucessor);
+	}
+
+	private boolean hasOnlyOneChild(BSTNode<T> node) {
+		return this.hasLeftChild(node) ^ this.hasRightChild(node);
+	}
+
+	private boolean hasLeftChild(BSTNode<T> node) {
+		return !node.getLeft().isEmpty();
+	}
+
+	private boolean hasRightChild(BSTNode<T> node) {
+		return !node.getRight().isEmpty();
 	}
 
 	@Override
