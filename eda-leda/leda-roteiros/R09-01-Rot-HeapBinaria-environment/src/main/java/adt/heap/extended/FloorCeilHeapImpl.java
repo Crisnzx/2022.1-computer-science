@@ -34,16 +34,8 @@ public class FloorCeilHeapImpl extends HeapImpl<Integer> implements FloorCeilHea
 			}
 		}
 
-		return null;
+		return parsedNumber;
 
-	}
-
-	private Integer[] getAscendingResult(Integer[] result, Integer[] invertedResult) {
-		if (result[0].compareTo(invertedResult[0]) < 0) {
-			return result;
-		} else {
-			return invertedResult;
-		}
 	}
 
 	@Override
@@ -70,7 +62,15 @@ public class FloorCeilHeapImpl extends HeapImpl<Integer> implements FloorCeilHea
 			}
 		}
 
-		return null;
+		return parsedNumber;
+	}
+
+	private Integer[] getAscendingResult(Integer[] result, Integer[] invertedResult) {
+		if (result[0].compareTo(invertedResult[0]) < 0) {
+			return result;
+		} else {
+			return invertedResult;
+		}
 	}
 
 }

@@ -34,7 +34,7 @@ public class FloorCeilHeapTest {
   @Test
   public void testFloorMissingNumber() {
     Integer result = this.floorCeilHeap.floor(this.array, 11);
-    assertNull(result);
+    assertEquals(Integer.valueOf(11), result);
   }
 
   @Test
@@ -52,7 +52,7 @@ public class FloorCeilHeapTest {
   @Test
   public void testCeilMissingNumber() {
     Integer result = this.floorCeilHeap.ceil(this.array, 2020);
-    assertNull(result);
+    assertEquals(Integer.valueOf(2020), result);
   }
 
 }
