@@ -34,7 +34,7 @@ public class FloorCeilHeapImpl extends HeapImpl<Integer> implements FloorCeilHea
 			}
 		}
 
-		return parsedNumber;
+		return null;
 
 	}
 
@@ -62,7 +62,7 @@ public class FloorCeilHeapImpl extends HeapImpl<Integer> implements FloorCeilHea
 			}
 		}
 
-		return parsedNumber;
+		return null;
 	}
 
 	private Integer[] getAscendingResult(Integer[] result, Integer[] invertedResult) {
