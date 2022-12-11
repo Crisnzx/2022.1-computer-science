@@ -31,10 +31,7 @@ public class OrderStatisticsHeapImpl<T extends Comparable<T>> implements OrderSt
 		}
 
 		for (int i = 0; i < k - 1; i++) {
-			T removedElement = heap.poll();
-			if (removedElement == null) {
-				return null;
-			}
+			heap.poll();
 		}
 
 		return heap.peek();
